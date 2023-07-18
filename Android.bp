@@ -1,0 +1,37 @@
+bpf {
+    name: "cpu_stats.o",
+    srcs: ["cpu_stats.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}
+
+cc_binary {
+    name: "cpu_stats_client",
+
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wthread-safety",
+    ],
+
+    clang: true,
+
+    shared_libs: [
+        "libbase",
+        "libbpf_android",
+        "libcutils",
+        "liblog",
+        "libnetdutils",
+    ],
+
+    static_libs: [
+        "libbpf",
+    ],
+
+
+    srcs: [
+        "cpu_stats_client.cpp",
+    ],
+}
