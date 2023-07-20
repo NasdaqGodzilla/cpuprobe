@@ -33,11 +33,15 @@ auto cpu_stats_client_print_records = [] (const CPU_STATS_BPFMAP_KEY& key, const
     return android::netdutils::Status(0);
 };
 
-int main() {
+int main(int argc, char* argv[]) {
     constexpr const char cpu_stats_prog_path[] = CPU_STATS_PROG_PATH;
     constexpr const char cpu_stats_bpfmap_path[] = CPU_STATS_BPFMAP_PATH;
     const int m_prog = bpf_obj_get(cpu_stats_prog_path);
     const int m_map = bpf_obj_get(cpu_stats_bpfmap_path);
+
+    int interval_us = 1 * 1000 * 1000;
+    if (2 == argc && nullptr != argv)
+        interval_us = atoi(*argv);
 
     if (0 > m_prog || 0 > m_map) {
         printf("cpu_stats (prog: %d, map: %d) init failed\n", m_prog, m_map);
@@ -52,7 +56,7 @@ int main() {
     for (;;) {
         (void) m_bpf_map.iterateWithValue(cpu_stats_client_print_records);
         (void) m_bpf_map.clear();
-        usleep(1 * 1000 * 1000);
+        usleep(interval_us);
     }
 
     return 0;
