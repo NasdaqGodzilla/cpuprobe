@@ -4,6 +4,8 @@ An example of getting started with Android ebpf. Using ebpf, on Android, print o
 
 一个Android ebpf的入门示例，利用ebpf，在Android上，打印出进程在CPU上的切换情况。
 
+[参考链接](https://nasdaqgodzilla.github.io/2023/08/23/Android-bpf%E7%AE%80%E5%8D%95%E4%B8%8A%E6%89%8B%E6%95%99%E7%A8%8B/)
+
 # Usage
 
 Build -> Install -> Reboot -> Run
